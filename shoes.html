@@ -50,4 +50,41 @@
       </nav>
   </head>
   <body style="background-image: url(images/background2.jpeg);background-size: 200vh;">
+    <div id="shoes1"></div>
+    <script>  
+    document.addEventListener('DOMContentLoaded', async(event) => {
+      const shoe= await getData()
+       displayShoes(shoe)
+      
+     
+    })
+    function getData () {
+      return fetch("https://json-server-4vyh.onrender.com/Shoes",{
+          method:"GET",
+          headers:{
+              "Content-Type":"application/json",
+              "Accept":"application/json"
+          }
+           
+        
+      })
+      .then(resp => resp.json())
+      .then(data => data)
+    }
+       function displayShoes(shoes) {
+        const shoess = shoes.map(lookShoes => {
+          
+          return `
+          <li class='type'>${lookShoes.type}</li>
+         <li>${lookShoes.size}</li>
+         <li>${lookShoes.color}</li>
+         <li>${lookShoes.price}</li>
+         <img src = ${lookShoes.image}>
+         <button style="font-size:100px;padding:50px;" >Get</button>
+          `
+        })
+        let div = document.getElementById("shoes1")
+        div.innerHTML = shoess
+      }
+    </script>
     </body>

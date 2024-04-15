@@ -48,11 +48,45 @@
           </div>
         </div>
       </nav>
-      <script src="index.js"></script>
   </head>
-  
-   
-      </div>
-    </div>
-  
+  <body style="background-image: url(images/background2.jpeg);background-size: 200vh;">
+    <div id="ball1"></div>
+    <script>  
+    document.addEventListener('DOMContentLoaded', async(event) => {
+      const bal= await getData()
+       displayBalls(bal)
+      
+     
+    })
+    function getData () {
+      return fetch("https://json-server-4vyh.onrender.com/Balls",{
+          method:"GET",
+          headers:{
+              "Content-Type":"application/json",
+              "Accept":"application/json"
+          }
+           
+        
+      })
+      .then(resp => resp.json())
+      .then(data => data)
+    }
+       function displayBalls(ball) {
+        const ballss = ball.map(lookBalls => {
+          
+          return `
+          <li class='type'>${lookBalls.type}</li>
+         <li>${lookBalls.size}</li>
+         <li>${lookBalls.color}</li>
+         <li>${lookBalls.description}</li>
+         <img src = ${lookBalls.image}>
+         <button style="font-size:100px;padding:50px;" >Get</button>
+          `
+        })
+        let div = document.getElementById("ball1")
+        div.innerHTML = ballss
+      }
+</script>
     </body>
+     
+  

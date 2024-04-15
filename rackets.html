@@ -51,4 +51,40 @@
 </script>
   </head>
   <body style="background-image: url(images/background2.jpeg);background-size: 200vh;">
+    <div id="rackets1"></div>
+    <script>  
+    document.addEventListener('DOMContentLoaded', async(event) => {
+      const racket= await getData()
+       displayRackets(racket)
+      
+     
+    })
+    function getData () {
+      return fetch("https://json-server-4vyh.onrender.com/Rackets",{
+          method:"GET",
+          headers:{
+              "Content-Type":"application/json",
+              "Accept":"application/json"
+          }
+           
+        
+      })
+      .then(resp => resp.json())
+      .then(data => data)
+    }
+       function displayRackets(Rack) {
+        const rac = Rack.map(lookRacket => {
+          
+          return `
+          <li class='type'>${lookRacket.type}</li>
+         <li>${lookRacket.color}</li>
+         <li>${lookRacket.description}</li>
+         <img src = ${lookRacket.image}>
+         <button style="font-size:100px;padding:50px;" >Get</button>
+          `
+        })
+        let div = document.getElementById("rackets1")
+        div.innerHTML = rac
+      }
+    </script>
     </body>
